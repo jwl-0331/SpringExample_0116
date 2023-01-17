@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jwl.spring.ex.database.dao.UsedGoodsDAO">
+ 
+ 	<!-- mapper 인터페이스를 위한거다 설정이됨 -->
+ 	<!-- 갑자기 테이블 구조가 바뀌면 원하지않는 컬럼값들이 들어올수있다 다 써준다 -->
+ 	<!-- result type 위치까지 다 적어준다 마지막 list 뺀 type -->
+ 	<select id="selectUsedGoodsList" resultType="com.jwl.spring.ex.database.model.UsedGoods">
+ 		SELECT 
+ 			`id`
+ 			, `sellerId`
+ 			, `title`
+ 			, `price`
+ 			, `description`
+ 			, `picture`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM 
+ 			`used_goods`
+ 	</select>
+ </mapper>
