@@ -21,4 +21,50 @@
  		WHERE
  			`id` = #{id}
  	</select>
+ 	
+ 	<insert id="insertReviewAsField" parameterType="map">
+ 		INSERT INTO `new_review`
+ 		(
+ 			`storeId`
+ 			, `menu`
+ 			, `userName`
+ 			, `point`
+ 			, `review`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{storeId}
+ 			, #{menu}
+ 			, #{userName}
+ 			, #{point}
+ 			, #{review}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="insertReview" parameterType="com.jwl.spring.ex.mybatis.model.Review">
+ 		INSERT INTO `new_review`
+ 		(
+ 			`storeId`
+ 			, `menu`
+ 			, `userName`
+ 			, `point`
+ 			, `review`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{storeId}
+ 			, #{menu}
+ 			, #{userName}
+ 			, #{point}
+ 			, #{review}
+ 			, now()
+ 			, now()
+ 		) 		
+ 	</insert>
  </mapper>

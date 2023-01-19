@@ -17,4 +17,15 @@ public class ReviewBO {
 		Review review = reviewDAO.selectReview(id);
 		return review;
 	}
+	
+	//id 저절로 creat update 정해진값
+	public int addReviewAsField(int storeId, String menu, String userName, double point, String review) {
+		
+		return reviewDAO.insertReviewAsField(storeId, menu, userName, point, review);
+	}
+	
+	//객체를 전달 받는다
+	public int addReview(Review review) {
+		return reviewDAO.insertReview(review);	
+	}
 }
