@@ -3,7 +3,6 @@ package com.jwl.spring.ex.jsp.bo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.jwl.spring.ex.jsp.dao.NewUserDAO;
 import com.jwl.spring.ex.jsp.model.NewUser;
 
@@ -22,6 +21,10 @@ public class NewUserBO {
 			, String introduce) {
 		return newUserDAO.insertUser(name, birthday, email, introduce);
 		
+	}
+	
+	public int addUserByObject(NewUser user) {
+		return newUserDAO.insertUserByObject(user);
 	}
 	
 }

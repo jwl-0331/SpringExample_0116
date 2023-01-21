@@ -34,17 +34,35 @@ public class NewUserController {
 	// POST 파라미터가 주소에 노출 되지않는다 , GET
 	//@RequestMapping(path= "/add", method=RequestMethod.POST)
 	@PostMapping("/add")
-	@ResponseBody
 	public String addUser(
-			@RequestParam(value="name")String name
+			@RequestParam(value="name")String name	
 			,@RequestParam(value="birthday")String birthday
 			,@RequestParam("email")String email
-			,@RequestParam("introduce")String introduce){
+			,@RequestParam("introduce")String introduce
+			, Model model){
 		
-		int count = newUserBO.addUser(name,birthday,email,introduce);
+		//int count = newUserBO.addUser(name,birthday,email,introduce);
 		
-		return "추가 완료 : " + count;
+		//return "추가 완료 : " + count;
+		
+		//객체 형태로 전달 받아서 추가한것을 보여준다 add 하고 나서 id 를 얻어온다
+		NewUser user = new NewUser();
+		user.setName(name);
+		user.setYyyymmdd(birthday);
+		user.setEmail(email);
+		user.setIntroduce(introduce); 
+		
+		//힙에 객체가 생성되어서 그 객체를 계속 쳐다보고있다 user도 그 객체를 쳐다보고있다
+		//add 한것을 쳐다본다
+		newUserBO.addUserByObject(user);
+		
+		model.addAttribute("user",user);
+		//jsp 폴더와 연동
+		return "jsp/lastuser";
 	}
+	
+	
+	
 	//입력화면 -> jsp 경로 페이지 html 을 보여주는것이다 post를 쓸이유가 없다 parameter 전달 없다
 	//Get   Post
 	@GetMapping("/input")
