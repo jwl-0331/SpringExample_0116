@@ -23,21 +23,42 @@
 				let yyyymmdd = $("#yyyymmddInput").val();
 				let email = $("#emailInput").val();
 				
+				//validation
+				if (name == ""){
+					alert("이름을 입력하세요.");
+					return;
+				}
+				
+				if(yyyymmdd== ""){
+					alert("생년월일을 입력하세요.");
+					return;
+				}
+				
+				if(email == ""){
+					alert("이메일을 입력하세요.");
+					return;
+				}
 				$.ajax({
+					//request 옵션들
 					type:"get"
 					, url:"/ajax/user/add"
 					, data:{"name":name, "yyyymmdd":yyyymmdd,"email":email}
+					//response 옵션
 					, success:function(data){
-						if(data.result=="success"{
+						//{"result":"success"} or "fail"
+						if(data.result == "success"){
+							//성공했을때 페이지를 이동시켜준다
 							location.href="/ajax/user/list";
 						} else{
 							alert("저장실패");
 						}
 					}
-					, error:function(){}
+					, error:function(){
 						alert("저장 에러!")
+					}
 				});
 			});
+		});
 			//이벤트 이름 이벤트 실행후 함수
 			/*
 			$("#saveForm").on("submit", function(){
@@ -50,7 +71,6 @@
 				
 			});
 			*/
-		});
 	</script>
 </body>
 </html>
