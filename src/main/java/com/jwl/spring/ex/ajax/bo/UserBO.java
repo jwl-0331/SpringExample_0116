@@ -22,4 +22,18 @@ public class UserBO {
 			, String email) {
 		return userDAO.insertUser(name, yyyymmdd, email);
 	}
+	
+	//email 중복 여부 알려주는 기능
+	public boolean isDuplicateEmail(String email) {
+		int count = userDAO.selectCountEmail(email);
+		
+		//count 가 0 이면 중복아님  
+		if(count == 0) {
+			return false;
+		}else{
+			//0아니면 중복임
+			return true;
+		}
+		
+	}
 }

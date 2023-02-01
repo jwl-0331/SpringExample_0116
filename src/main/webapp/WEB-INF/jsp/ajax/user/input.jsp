@@ -9,14 +9,48 @@
 </head>
 <body>
 	<!-- <form method="get" action="/ ajax/user/add" id="saveForm"> -->
-		<label>이름</label> <input type="text" name="name" id="nameInput">
-		<label>생년월일</label> <input type="text" name="yyyymmdd" id="yyyymmddInput">
+		<label>이름</label> <input type="text" name="name" id="nameInput"> <br>
+		<label>생년월일</label> <input type="text" name="yyyymmdd" id="yyyymmddInput"> <br>
 		<label>이메일</label> <input type="text" name="email" id="emailInput">
-		<button type="submit" id="saveBtn">저장</button>
+		<button type="button" id="duplicateBtn">중복확인</button>
+		 <br>
+		<button type="button" id="saveBtn">저장</button>
 	<!--</form>-->
 	
 	<script>
 		$(document).ready(function(){
+			//중복성 검사 여부 확인 -전역변수
+			var isChecked = false;
+			
+			$("#duplicateBtn").on("click",function(){
+				let email = $("#emailInput").val();
+				//유효성검사 (validation)
+				if(email == ""){
+					alert("이메일 입력하세요.");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/ajax/user/is_duplicate"
+					, data:{"email": email}
+					, success:function(data){
+						//중복 체크 여부 상태 저장
+						isChecked = true;
+						if(data.is_duplicate == true){
+							//중복된상태
+							alert("중복되었습니다.");
+						}else{
+							//중복되지 않음
+							alert("사용가능 합니다.");
+						}
+					}
+					, error:function(){
+						alert("중복확인 에러");
+					}
+					
+				});
+			});
 			
 			$("#saveBtn").on("click",function(){
 				let name = $("#nameInput").val();
@@ -38,6 +72,14 @@
 					alert("이메일을 입력하세요.");
 					return;
 				}
+				//유효성 검사
+				//중복 체크를 했는지
+				if(!isChecked){
+					alert("중복여부 체크를 해주세요");
+					return;
+				}
+				//중복 되었는지
+				
 				$.ajax({
 					//request 옵션들
 					type:"get"
@@ -58,6 +100,7 @@
 					}
 				});
 			});
+			
 		});
 			//이벤트 이름 이벤트 실행후 함수
 			/*
